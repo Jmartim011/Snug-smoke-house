@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Snug | Smoke House | Funchal</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Source+Sans+3:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --charcoal: #0D0D0D;
+            --ember: #B33000;
+            --fire: #E87722;
+            --parchment: #F5E6C8;
+            --walnut: #2A1A0A;
+            --white: #FFFFFF;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+
+        body { 
+            font-family: 'Source Sans 3', sans-serif; 
+            background-color: var(--charcoal); 
+            color: var(--parchment); 
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+        /* Smoky Grain Texture Overlay */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.12; pointer-events: none; z-index: 1000;
+        }
+
+        /* Mobile Wrapper */
+        .app-wrapper {
+            max-width: 430px;
+            margin: 0 auto;
+            background-color: var(--charcoal);
+            position: relative;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-weight: 700; }
+        .section { padding: 60px 20px; position: relative; }
+        .section-title { font-size: 3rem; margin-bottom: 40px; text-align: center; color: var(--ember); line-height: 1; letter-spacing: -1px; }
+
+        /* Buttons */
+        .btn {
+            display: flex; align-items: center; justify-content: center;
+            height: 58px; padding: 0 32px; border-radius: 0;
+            text-decoration: none; font-family: 'Oswald', sans-serif; font-weight: 700; 
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px;
+            transition: var(--transition); border: none; cursor: pointer; width: 100%;
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-ember { background: var(--ember); color: var(--charcoal); box-shadow: 0 10px 30px rgba(179, 48, 0, 0.4); }
+        .btn-outline { background: transparent; color: var(--parchment); border: 2px solid var(--parchment); }
+
+        /* 1. HERO */
+        .hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; position: relative;
+            background: linear-gradient(rgba(13, 13, 13, 0.8), rgba(232, 119, 34, 0.2)), url('https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&q=80&w=1000') no-repeat center center/cover;
+            padding: 0 30px; overflow: hidden;
+        }
+
+        /* CSS Smoke Animation */
+        .smoke-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; pointer-events: none; }
+        .smoke {
+            position: absolute; bottom: -50px; background: rgba(245, 230, 200, 0.1);
+            filter: blur(40px); border-radius: 50%; animation: rise 8s infinite ease-out;
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 0.3; }
+            100% { transform: translateY(-300px) scale(2); opacity: 0; }
+        }
+
+        .hero-content { z-index: 2; width: 100%; }
+        .hero h1 { font-size: 5.5rem; margin-bottom: 0; color: var(--parchment); line-height: 0.9; letter-spacing: -2px; }
+        .hero .subtitle { font-size: 1rem; text-transform: uppercase; letter-spacing: 8px; color: var(--ember); margin-bottom: 25px; font-weight: 700; }
+        .hero .tagline { font-size: 1.2rem; color: var(--parchment); margin-bottom: 50px; opacity: 0.8; font-weight: 300; }
+        .hero .cta-stack { display: flex; flex-direction: column; gap: 16px; }
+
+        /* 2. CONCEITO */
+        .concept { background-color: var(--walnut); border-top: 4px solid var(--ember); }
+        .concept-quote { font-size: 2.2rem; text-align: center; margin-bottom: 30px; line-height: 1.1; color: var(--white); }
+        .concept p { text-align: center; margin-bottom: 40px; font-weight: 300; font-size: 1.1rem; opacity: 0.8; }
+        .concept-badges { display: flex; justify-content: center; gap: 15px; }
+        .badge { background: var(--ember); color: var(--charcoal); padding: 10px 15px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Oswald', sans-serif; }
+
+        /* 3. MENU */
+        .menu-tabs { 
+            display: flex; gap: 10px; overflow-x: auto; padding: 10px 0 35px;
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
+        .menu-tabs::-webkit-scrollbar { display: none; }
+        .menu-pill { 
+            white-space: nowrap; padding: 10px 25px; background: rgba(245, 230, 200, 0.05);
+            border: 1px solid rgba(245, 230, 200, 0.1); border-radius: 0;
+            font-family: 'Oswald', sans-serif; font-size: 0.9rem; letter-spacing: 1px;
+        }
+        .menu-pill.active { background: var(--ember); color: var(--charcoal); border-color: var(--ember); }
+
+        .menu-stack { display: flex; flex-direction: column; gap: 15px; }
+        .menu-card { 
+            background: var(--walnut); padding: 25px; border-radius: 0;
+            border-left: 5px solid var(--fire); border-bottom: 1px solid rgba(245, 230, 200, 0.05);
+        }
+        .menu-card h4 { font-size: 1.4rem; color: var(--parchment); margin-bottom: 8px; }
+        .menu-card p { font-size: 0.9rem; color: #a5937d; font-weight: 300; }
+
+        /* 4. CRAFT BEER */
+        .beer-section { 
+            background: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.9)), url('https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&q=80&w=800') center center/cover;
+            text-align: center; border-top: 2px solid var(--fire);
+        }
+        .beer-pills { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .beer-pill { padding: 8px 20px; border: 1px solid var(--fire); color: var(--fire); font-weight: 700; font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 2px; }
+
+        /* 5. REVIEWS */
+        .carousel-container { position: relative; width: 100%; overflow: hidden; padding: 20px 0; }
+        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .testimonial-card { 
+            flex: 0 0 100%; padding: 30px; background: rgba(245, 230, 200, 0.03); 
+            border: 1px solid rgba(245, 230, 200, 0.05); text-align: center;
+        }
+        .testimonial-card p { font-style: italic; font-size: 1.1rem; margin-bottom: 20px; font-weight: 300; }
+        .testimonial-card span { font-family: 'Oswald', sans-serif; font-size: 0.85rem; color: var(--ember); letter-spacing: 1px; }
+        
+        .pill-badge { 
+            display: inline-block; padding: 12px 25px; background: var(--ember); 
+            color: var(--charcoal); font-weight: 700; font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem; margin-top: 40px; letter-spacing: 1px;
+        }
+
+        /* 6. RESERVAS & CONTACTO */
+        .contact-stack { display: flex; flex-direction: column; gap: 15px; margin-top: 40px; }
+        .btn-contact { background: rgba(245, 230, 200, 0.05); color: var(--parchment); border: 1px solid rgba(245, 230, 200, 0.1); }
+        .schedule { margin-top: 40px; padding: 20px; border: 1px dashed var(--fire); text-align: center; }
+        .schedule h4 { color: var(--fire); margin-bottom: 10px; font-size: 1.2rem; }
+
+        /* 8. FOOTER */
+        footer { background: #000; padding: 60px 20px 140px; text-align: center; }
+        .footer-logo { font-size: 2.5rem; color: var(--parchment); margin-bottom: 10px; }
+
+        /* STICKY BOTTOM CTA */
+        .sticky-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: var(--ember); padding: 15px 20px; z-index: 999;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+        }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        @media (min-width: 431px) {
+            .app-wrapper { border-left: 1px solid rgba(245, 230, 200, 0.1); border-right: 1px solid rgba(245, 230, 200, 0.1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-wrapper">
+        
+        <!-- 1. HERO -->
+        <header class="hero">
+            <div class="smoke-container" id="smokeContainer"></div>
+            <div class="hero-content">
+                <h1 class="reveal">The Snug</h1>
+                <div class="subtitle reveal">Smoke House</div>
+                <p class="tagline reveal">Slow smoked. Wood fired. Funchal's BBQ.</p>
+                <div class="cta-stack reveal">
+                    <a href="#menu" class="btn btn-ember">Ver a Carta 🔥</a>
+                    <a href="https://maps.google.com" class="btn btn-outline">Como Chegar</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2. CONCEITO -->
+        <section class="section concept">
+            <h3 class="concept-quote reveal">Carne fumada durante horas. Lenha de árvores de fruto. Sabor que não se esquece.</h3>
+            <p class="reveal">Inspirado nos grandes smokehouse americanos, o The Snug traz ao Funchal a autenticidade do Deep South BBQ — com ingredientes frescos e cerveja artesanal.</p>
+            <div class="concept-badges reveal">
+                <div class="badge">🔥 Slow Smoked</div>
+                <div class="badge">🍺 Craft Beer</div>
+                <div class="badge">🥩 100% Fresh</div>
+            </div>
+        </section>
+
+        <!-- 3. MENU -->
+        <section id="menu" class="section">
+            <h2 class="section-title reveal">A Carta</h2>
+            <div class="menu-tabs reveal">
+                <div class="menu-pill active">Burgers</div>
+                <div class="menu-pill">BBQ</div>
+                <div class="menu-pill">Tacos</div>
+                <div class="menu-pill">Sides</div>
+                <div class="menu-pill">Bebidas</div>
+            </div>
+            
+            <div class="menu-stack">
+                <div class="menu-card reveal">
+                    <h4>🍔 Build Your Own Burger</h4>
+                    <p>Escolhe os teus ingredientes. Carne de vaca selecionada e grelhada na hora.</p>
+                </div>
+                <div class="menu-card reveal">
+                    <h4>🥩 Smoked Brisket</h4>
+                    <p>O orgulho da casa. Peito de vaca fumado durante 12h em lenha de carvalho.</p>
+                </div>
+                <div class="menu-card reveal">
+                    <h4>🌮 Mixed Tacos</h4>
+                    <p>Frango, vaca e porco desfiado com guacamole fresco e queijo fumado.</p>
+                </div>
+                <div class="menu-card reveal">
+                    <h4>🫁 Pulled Pork Sandwich</h4>
+                    <p>Porco desfiado lentamente com cebola crocante e o nosso molho BBQ caseiro.</p>
+                </div>
+                <div class="menu-card reveal">
+                    <h4>🧀 Mac & Cheese</h4>
+                    <p>Cremoso, fumado e reconfortante. O acompanhamento perfeito.</p>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 0.75rem; font-style: italic; margin-top: 30px; opacity: 0.5;">Opções vegetarianas, vegan e sem glúten disponíveis</p>
+        </section>
+
+        <!-- 4. CRAFT BEER -->
+        <section class="section beer-section">
+            <h2 class="section-title reveal" style="color: var(--white);">Cerveja Artesanal</h2>
+            <p class="reveal">Parceiros do Madeira Beer Lab — cervejas produzidas na ilha, a combinar com as nossas carnes fumadas.</p>
+            <div class="beer-pills reveal">
+                <div class="beer-pill">IPA</div>
+                <div class="beer-pill">STOUT</div>
+                <div class="beer-pill">ALTBIER</div>
+            </div>
+        </section>
+
+        <!-- 5. REVIEWS -->
+        <section class="section">
+            <h2 class="section-title reveal">O que dizem</h2>
+            <div class="carousel-container reveal">
+                <div class="carousel-track" id="testimonialTrack">
+                    <div class="testimonial-card">
+                        <p>"Os melhores burgers do Funchal. Fomos 4 vezes em duas semanas."</p>
+                        <span>TripAdvisor ⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"As buffalo wings são as melhores que já comi. O brisket era perfeição."</p>
+                        <span>TripAdvisor ⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Sentimo-nos num diner americano. Se voltarmos à Madeira, é obrigatório."</p>
+                        <span>TripAdvisor ⭐⭐⭐⭐⭐</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <div class="pill-badge reveal">4.5 ⭐ TripAdvisor · Top 10% Funchal</div>
+            </div>
+        </section>
+
+        <!-- 6. RESERVAS & CONTACTO -->
+        <section id="contacto" class="section">
+            <h2 class="section-title reveal">Encontra-nos</h2>
+            <div class="contact-stack">
+                <a href="tel:+351291220763" class="btn btn-contact reveal">📞 +351 291 220 763</a>
+                <a href="https://maps.google.com" class="btn btn-contact reveal">📍 Rua do Hospital Velho 28</a>
+                <a href="https://instagram.com" class="btn btn-contact reveal">📸 @smokehouse.pt</a>
+            </div>
+            <div class="schedule reveal">
+                <h4>Horário</h4>
+                <p>Seg–Sex: 9h–22h<br>Sáb: 10h–22h<br>Dom: Encerrado</p>
+            </div>
+        </section>
+
+        <!-- 7. FOOTER -->
+        <footer>
+            <div class="footer-logo">THE SNUG</div>
+            <p style="font-size: 0.8rem; letter-spacing: 2px; opacity: 0.7;">Smoke House · Funchal, Madeira</p>
+            <p style="color: var(--fire); margin-top: 20px; font-weight: 700; letter-spacing: 1px;">🔥 Slow smoked. Wood fired. Always fresh.</p>
+            <div style="margin-top: 40px; font-size: 0.7rem; opacity: 0.3;">
+                © 2026 The Snug Smoke House
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- STICKY BOTTOM BAR -->
+    <div class="sticky-bar">
+        <a href="#menu" class="btn btn-ember">Ver a Carta 🔥</a>
+    </div>
+
+    <script>
+        // CSS Smoke Animation Logic
+        const smokeContainer = document.getElementById('smokeContainer');
+        for (let i = 0; i < 15; i++) {
+            const smoke = document.createElement('div');
+            smoke.className = 'smoke';
+            smoke.style.left = Math.random() * 100 + '%';
+            smoke.style.width = Math.random() * 150 + 50 + 'px';
+            smoke.style.height = smoke.style.width;
+            smoke.style.animationDelay = Math.random() * 8 + 's';
+            smoke.style.animationDuration = Math.random() * 4 + 6 + 's';
+            smokeContainer.appendChild(smoke);
+        }
+
+        // Intersection Observer for Fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Testimonials Carousel Logic
+        const track = document.getElementById('testimonialTrack');
+        let index = 0;
+        setInterval(() => {
+            index = (index + 1) % 3;
+            track.style.transform = `translateX(-${index * 100}%)`;
+        }, 5000);
+    </script>
+</body>
+</html>
